@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
             text-align: center;
             padding: 50px;
             position: relative;
@@ -74,10 +74,6 @@
             50% { transform: translateY(-30px); opacity: 0.7; }
             100% { transform: translateY(-60px); opacity: 0; }
         }
-        .no-btn {
-            position: relative;
-            transition: 0.3s;
-        }
     </style>
 </head>
 <body>
@@ -107,13 +103,11 @@
 
         function declineProposal() {
             let noButton = document.getElementById('noButton');
-            let maxX = window.innerWidth - noButton.offsetWidth - 50;
-            let maxY = window.innerHeight - noButton.offsetHeight - 50;
-            let x = Math.random() * maxX;
-            let y = Math.random() * maxY;
+            let x = Math.random() * (window.innerWidth - 100);
+            let y = Math.random() * (window.innerHeight - 100);
+            noButton.style.position = "absolute";
             noButton.style.left = `${x}px`;
             noButton.style.top = `${y}px`;
-            noButton.style.position = "absolute";
             
             if (count < declineMessages.length) {
                 document.getElementById('message').innerHTML = declineMessages[count];

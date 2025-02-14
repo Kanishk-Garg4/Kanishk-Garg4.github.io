@@ -7,24 +7,30 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            background-color: #ffe6e6;
             text-align: center;
             padding: 50px;
             position: relative;
-            overflow: hidden;
         }
         .container {
             background: white;
-            padding: 30px;
+            padding: 20px;
             border-radius: 15px;
-            box-shadow: 0px 10px 20px rgba(0,0,0,0.2);
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
             display: inline-block;
             position: relative;
-            animation: fadeIn 1.5s ease-in-out;
         }
         h1 {
             color: #ff4d6d;
-            animation: pulse 2s infinite;
+        }
+        .heart {
+            color: red;
+            font-size: 50px;
+            animation: heartbeat 1s infinite;
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
         }
         .btn-container {
             display: flex;
@@ -38,45 +44,11 @@
             background: #ff4d6d;
             color: white;
             border: none;
-            padding: 12px 24px;
-            font-size: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
             border-radius: 10px;
             cursor: pointer;
-            transition: 0.3s ease-in-out;
-        }
-        .btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
-        }
-        .yes-btn {
-            animation: bounce 2s infinite;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        .heart {
-            position: absolute;
-            color: red;
-            font-size: 24px;
-            animation: float 3s infinite;
-        }
-        @keyframes float {
-            0% { transform: translateY(0); opacity: 1; }
-            50% { transform: translateY(-30px); opacity: 0.7; }
-            100% { transform: translateY(-60px); opacity: 0; }
-        }
-        .no-btn {
             position: relative;
-            transition: 0.3s;
         }
     </style>
 </head>
@@ -102,38 +74,21 @@
 
         function acceptProposal() {
             document.getElementById('message').innerHTML = "Yay! You made me the happiest person ever! 💖";
-            createHearts();
         }
 
         function declineProposal() {
             let noButton = document.getElementById('noButton');
-            let maxX = window.innerWidth - noButton.offsetWidth - 50;
-            let maxY = window.innerHeight - noButton.offsetHeight - 50;
-            let x = Math.random() * maxX;
-            let y = Math.random() * maxY;
+            let x = Math.random() * (window.innerWidth - 100);
+            let y = Math.random() * (window.innerHeight - 100);
+            noButton.style.position = "absolute";
             noButton.style.left = `${x}px`;
             noButton.style.top = `${y}px`;
-            noButton.style.position = "absolute";
             
             if (count < declineMessages.length) {
                 document.getElementById('message').innerHTML = declineMessages[count];
                 count++;
             } else {
                 document.getElementById('message').innerHTML = "Guess what? You have no choice! 💘";
-            }
-        }
-        
-        function createHearts() {
-            for (let i = 0; i < 30; i++) {
-                let heart = document.createElement("div");
-                heart.classList.add("heart");
-                heart.innerHTML = "❤️";
-                document.body.appendChild(heart);
-                let x = Math.random() * window.innerWidth;
-                let y = Math.random() * window.innerHeight;
-                heart.style.left = `${x}px`;
-                heart.style.top = `${y}px`;
-                setTimeout(() => heart.remove(), 3000);
             }
         }
     </script>
